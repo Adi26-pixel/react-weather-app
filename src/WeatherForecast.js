@@ -16,18 +16,6 @@ export default function WeatherForecast(props) {
     setLoaded(true);
   }
 
-  function dailyWeek(dailyForecast, index) {
-    if (index < 5) {
-      return (
-        <div className="col" key={index}>
-          <WeatherForecastDay data={dailyForecast} />
-        </div>
-      );
-    } else {
-      return null;
-    }
-  }
-
   function load() {
     let apiKey = "38cc12b312104o45t5c1faaa8bf9b6c0";
     let lon = props.coordinates.longitude;
@@ -42,7 +30,19 @@ export default function WeatherForecast(props) {
   if (loaded) {
     return (
       <div className="WeatherForecast">
-        <div className="row">{forecast.map(dailyWeek)}</div>
+        <div className="row">
+          {forecast.map(function dailyWeek(dailyForecast, index) {
+            if (index < 5) {
+              return (
+                <div className="col" key={index}>
+                  <WeatherForecastDay data={dailyForecast} />
+                </div>
+              );
+            } else {
+              return null;
+            }
+          })}
+        </div>
       </div>
     );
   } else {
