@@ -28,13 +28,7 @@ export default function WeatherForecast(props) {
     }
   }
 
-  if (loaded) {
-    return (
-      <div className="WeatherForecast">
-        <div className="row">{forecast.map(dailyWeek)}</div>
-      </div>
-    );
-  } else {
+  function load() {
     let apiKey = "38cc12b312104o45t5c1faaa8bf9b6c0";
     let lon = props.coordinates.longitude;
     let lat = props.coordinates.latitude;
@@ -43,5 +37,15 @@ export default function WeatherForecast(props) {
     axios.get(apiUrl).then(handleResponse);
 
     return null;
+  }
+
+  if (loaded) {
+    return (
+      <div className="WeatherForecast">
+        <div className="row">{forecast.map(dailyWeek)}</div>
+      </div>
+    );
+  } else {
+    load();
   }
 }
